@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Herdrich Lodash Demonstration</title>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.4/lodash.min.js"></script>
+  </head>
+  <body>
+  </body>
+
+  <script>
+
+    // Times
+    randNumber = () => {
+        return Math.round(Math.random() * 100);
+    }
+
+    const sampleNumbers = _.times(5, randNumber);
+
+    console.log(sampleNumbers);
+    // (5) [55, 25, 79, 28, 13]
+
+
+    // Random
+    randNumber = () => {
+        return _.random(22, 88);
+    }
+    
+    const lodashRandNumbers = _.times(8, randNumber);
+
+    console.log(lodashRandNumbers);
+    // (8) [73, 76, 56, 71, 24, 60, 23, 39]
+    
+    
+    // Filter
+    const players = [
+        { name: 'Mahomes', passYards: 5250},
+        { name: 'Herbert', passYards: 4739},
+        { name: 'Brady', passYards: 4694},
+        { name: 'Cousins', passYards: 4547},
+        { name: 'Burrow', passYards: 4475}
+    ]
+
+    const over4700 = _.filter(players, player => {
+        return player.passYards > 4700;
+    });
+
+    console.log(over4700);
+    // (2) [{…}, {…}] 0: {name: 'Mahomes', passYards: 5250}1: {name: 'Herbert', passYards: 4739}
+
+    const under4700 = _.filter(players, player => {
+        return player.passYards < 4700;
+    });
+
+    console.log(under4700);
+    // (3) [{…}, {…}, {…}] 0: {name: 'Brady', passYards: 4694}1: {name: 'Cousins', passYards: 4547}2: {name: 'Burrow', passYards: 4475}
+
+
+    // KeyBy
+    const roster = [
+        { position: 'QB', name: 'Mahomes'},
+        { position: 'RB', name: 'Jacobs'},
+        { position: 'WR', name: 'Jefferson'},
+        { position: 'TE', name: 'Kelce'},
+        { position: 'DE', name: 'Bosa'}
+    ]
+
+    const positions = _.keyBy(roster, 'position');
+
+    console.log(roster);
+    console.log(positions);
+    // (5) [{…}, {…}, {…}, {…}, {…}] 0: {position: 'QB', name: 'Mahomes'}1: {position: 'RB', name: 'Jacobs'}2: {position: 'WR', name: 'Jefferson'}3: {position: 'TE', name: 'Kelce'}4: {position: 'DE', name: 'Bosa'}
+    // {QB: {…}, RB: {…}, WR: {…}, TE: {…}, DE: {…}} DE: {position: 'DE', name: 'Bosa'}QB: {position: 'QB', name: 'Mahomes'}RB: {position: 'RB', name: 'Jacobs'}TE: {position: 'TE', name: 'Kelce'}WR: {position: 'WR', name: 'Jefferson'}
+
+    const dEnd = positions['DE'];
+    const qBack = positions['QB'];
+
+    console.log(dEnd);
+    console.log(qBack);
+    // {position: 'DE', name: 'Bosa'}
+    // {position: 'QB', name: 'Mahomes'}
+
+
+    const tdStats = [
+        {name: 'Chubb', td: 12 },
+        {name: 'Adams', td: 14 },
+        {name: 'Ekeler', td: 13 },
+        {name: 'Williams', td: 17 },
+        {name: 'Diggs', td: 11 }
+    ];
+
+    const totalTds = _.reduce(tdStats, function(total, player) {
+        return total + player.td;
+    }, 0);
+
+    console.log(totalTds);
+    // 67
+
+
+    // Reduce
+    const links = [
+        "https://www.nfl.com/",
+        "https://www.colts.com/",
+        "https://www.espn.com/"
+    ]
+
+    const webLinks = _.reduce(links, function(content, link) {
+        return `<a href='${link}'>${link}</a><br>`.concat(content);
+    }, '')
+
+    console.log(webLinks);
+    // <a href='https://www.espn.com/'>https://www.espn.com/</a><br><a href='https://www.colts.com/'>https://www.colts.com/</a><br><a href='https://www.nfl.com/'>https://www.nfl.com/</a><br>
+
+
+    // Debugger
+    const dlinks = [
+        "https://www.nfl.com/",
+        "https://www.colts.com/",
+        "https://www.espn.com/"
+    ]
+
+    const webdLinks = _.reduce(dlinks, function(content, link) {
+        debugger;
+        return `<a href='${link}'>${link}</a>`.concat(content);
+    }, '')
+
+    console.log(webdLinks);
+    // Debugger paused after nfl.com/" because I took out the <br>
+
+  </script>
+</html>
